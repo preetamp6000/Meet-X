@@ -77,20 +77,20 @@ Perfect for **remote teams, classrooms, or portfolio demonstrations**.
 
 ## 🚀 Feature Additions
 
-### 🧠 AI-based meeting transcription & chat summarization
+#### 🧠 AI-based meeting transcription & chat summarization
 
-### 📅 Schedule meetings and send invites
+#### 📅 Schedule meetings and send invites
 
-### 💬 Add emoji reactions in chat
+#### 💬 Add emoji reactions in chat
 
-### 🖼️ Virtual backgrounds with TensorFlow.js
+#### 🖼️ Virtual backgrounds with TensorFlow.js
 
 ## 🧩 Technical Improvements
 
-### 📈 Migrate to JWT Auth for token validation
+#### 📈 Migrate to JWT Auth for token validation
 
-### 🧰 Add CI/CD pipeline using GitHub Actions
+#### 🧰 Add CI/CD pipeline using GitHub Actions
 
-### 🏗️ Scale backend with Docker + NGINX
+#### 🏗️ Scale backend with Docker + NGINX
 
-### 💾 Optimize MongoDB queries and indexing
+#### 💾 Optimize MongoDB queries and indexing
