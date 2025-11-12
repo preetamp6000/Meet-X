@@ -24,7 +24,7 @@ Perfect for **remote teams, classrooms, or portfolio demonstrations**.
 
 ---
 
-## 🖼️ Project Demo Images / GIFs  
+## 🖼️ Project Demo Images   
 
 | Landing Page | Video Call |
 |------------|-------------|
