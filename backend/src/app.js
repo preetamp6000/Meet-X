@@ -53,7 +53,7 @@ const start = async () => {
     // Remove or fix this line - it's incomplete
     // app.set("mongo_user")
     
-    const connectionDb = await mongoose.connect("mongodb+srv://imdigitalashish:imdigitalashish@cluster0.cujabk4.mongodb.net/");
+    const connectionDb = await mongoose.connect("mongodb+srv://pritampatil6000:pritampatil6000@cluster0.ufctmmo.mongodb.net/?appName=Cluster0");
     console.log(`MONGO Connected DB Host: ${connectionDb.connection.host}`);
     
     server.listen(app.get("port"), () => {
