@@ -13,7 +13,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
 
 .landingPageContainer nav h2 {
@@ -25,7 +24,6 @@
   display: flex;
   gap: 1.6rem;
   cursor: pointer;
-
 }
 
 .landingMainContainer {
@@ -65,8 +63,8 @@
   justify-content: space-between;
   padding-inline: 20px;
   text-align: center;
-
 }
+
 .meetContainer {
   display: flex;
   padding-inline: 20px;
@@ -75,13 +73,10 @@
   justify-content: center;
 }
 
-
-
 .leftPanel {
   height: 100%;
   display: flex;
   align-items: center;
-
 }
 
 .rightPanel {
@@ -93,4 +88,146 @@
   width: 30vw;
   height: auto;
   border-radius: 20px;
+}
+
+/* ========== RESPONSIVE MEDIA QUERIES ========== */
+
+/* Tablet and smaller desktop (1024px and below) */
+@media (max-width: 1024px) {
+  .landingMainContainer {
+    padding-inline: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    gap: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .landingMainContainer > div:nth-child(1) {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .landingMainContainer > div:nth-child(2) img {
+    height: 50vh;
+    max-width: 100%;
+  }
+
+  .meetContainer {
+    flex-direction: column;
+    gap: 2rem;
+    height: auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    align-items: center;
+  }
+
+  .leftPanel, .rightPanel {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .rightPanel > img {
+    width: 60vw;
+    max-width: 400px;
+  }
+
+  .navBar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .navBar > div {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Mobile devices (768px and below) */
+@media (max-width: 768px) {
+  .landingPageContainer nav {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .landingPageContainer nav .navlist {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .landingMainContainer {
+    padding-inline: 1rem;
+  }
+
+  .landingMainContainer > div:nth-child(1) {
+    font-size: 1.5rem;
+  }
+
+  .landingMainContainer > div:nth-child(1) div[role='button'] {
+    margin: 1.5rem auto 0;
+  }
+
+  .landingMainContainer > div:nth-child(1) div[role='button'] a {
+    font-size: 1.4rem;
+  }
+
+  .meetContainer {
+    padding-inline: 1rem;
+  }
+
+  .meetContainer .leftPanel > div {
+    width: 100%;
+  }
+
+  .meetContainer .leftPanel > div h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .meetContainer .leftPanel > div div[style*="display: flex"] {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .rightPanel > img {
+    width: 80vw;
+  }
+
+  .navBar h2 {
+    font-size: 1.5rem;
+  }
+
+  .navBar > div:nth-child(2) {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+}
+
+/* Small mobile devices (480px and below) */
+@media (max-width: 480px) {
+  .landingMainContainer > div:nth-child(1) {
+    font-size: 1.3rem;
+  }
+
+  .landingMainContainer > div:nth-child(2) img {
+    height: 40vh;
+  }
+
+  .meetContainer .leftPanel > div h2 {
+    font-size: 1.3rem;
+  }
+
+  .navBar h2 {
+    font-size: 1.3rem;
+  }
+
+  .landingPageContainer nav h2 {
+    font-size: 1.5rem;
+  }
 }

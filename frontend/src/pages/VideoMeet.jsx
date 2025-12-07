@@ -40,7 +40,7 @@ export default function VideoMeetComponent() {
 
     let [screen, setScreen] = useState();
 
-    let [showModal, setModal] = useState(true);
+    let [showModal, setModal] = useState(false); // Changed to false by default
 
     let [screenAvailable, setScreenAvailable] = useState();
 
@@ -48,7 +48,7 @@ export default function VideoMeetComponent() {
 
     let [message, setMessage] = useState("");
 
-    let [newMessages, setNewMessages] = useState(3);
+    let [newMessages, setNewMessages] = useState(0); // Changed to 0
 
     let [askForUsername, setAskForUsername] = useState(true);
 
@@ -58,17 +58,11 @@ export default function VideoMeetComponent() {
 
     let [videos, setVideos] = useState([])
 
-    // TODO
-    // if(isChrome() === false) {
-
-
-    // }
-
     useEffect(() => {
         console.log("HELLO")
         getPermissions();
 
-    })
+    }, [])
 
     let getDislayMedia = () => {
         if (screen) {
@@ -127,18 +121,13 @@ export default function VideoMeetComponent() {
             console.log("SET STATE HAS ", video, audio);
 
         }
-
-
     }, [video, audio])
+    
     let getMedia = () => {
         setVideo(videoAvailable);
         setAudio(audioAvailable);
         connectToSocketServer();
-
     }
-
-
-
 
     let getUserMediaSuccess = (stream) => {
         try {
@@ -204,10 +193,6 @@ export default function VideoMeetComponent() {
         }
     }
 
-
-
-
-
     let getDislayMediaSuccess = (stream) => {
         console.log("HERE")
         try {
@@ -269,9 +254,6 @@ export default function VideoMeetComponent() {
             }
         }
     }
-
-
-
 
     let connectToSocketServer = () => {
         socketRef.current = io.connect(server_url, { secure: false })
@@ -335,7 +317,6 @@ export default function VideoMeetComponent() {
                         }
                     };
 
-
                     // Add the local video stream
                     if (window.localStream !== undefined && window.localStream !== null) {
                         connections[socketListId].addStream(window.localStream)
@@ -375,6 +356,7 @@ export default function VideoMeetComponent() {
         ctx.resume()
         return Object.assign(dst.stream.getAudioTracks()[0], { enabled: false })
     }
+    
     let black = ({ width = 640, height = 480 } = {}) => {
         let canvas = Object.assign(document.createElement("canvas"), { width, height })
         canvas.getContext('2d').fillRect(0, 0, width, height)
@@ -384,11 +366,10 @@ export default function VideoMeetComponent() {
 
     let handleVideo = () => {
         setVideo(!video);
-        // getUserMedia();
     }
+    
     let handleAudio = () => {
         setAudio(!audio)
-        // getUserMedia();
     }
 
     useEffect(() => {
@@ -396,6 +377,7 @@ export default function VideoMeetComponent() {
             getDislayMedia();
         }
     }, [screen])
+    
     let handleScreen = () => {
         setScreen(!screen);
     }
@@ -408,17 +390,6 @@ export default function VideoMeetComponent() {
         window.location.href = "/"
     }
 
-    let openChat = () => {
-        setModal(true);
-        setNewMessages(0);
-    }
-    let closeChat = () => {
-        setModal(false);
-    }
-    let handleMessage = (e) => {
-        setMessage(e.target.value);
-    }
-
     const addMessage = (data, sender, socketIdSender) => {
         setMessages((prevMessages) => [
             ...prevMessages,
@@ -429,75 +400,73 @@ export default function VideoMeetComponent() {
         }
     };
 
-
-
     let sendMessage = () => {
         console.log(socketRef.current);
         socketRef.current.emit('chat-message', message, username)
         setMessage("");
-
-        // this.setState({ message: "", sender: username })
     }
 
-    
     let connect = () => {
         setAskForUsername(false);
         getMedia();
     }
 
-
     return (
         <div>
-
             {askForUsername === true ?
-
-                <div>
-
-
-                    <h2>Enter into Lobby </h2>
-                    <TextField id="outlined-basic" label="Username" value={username} onChange={e => setUsername(e.target.value)} variant="outlined" />
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100vh',
+                    backgroundColor: 'rgb(1, 4, 48)',
+                    color: 'white',
+                    gap: '20px'
+                }}>
+                    <h2>Enter into Lobby</h2>
+                    <TextField 
+                        id="outlined-basic" 
+                        label="Username" 
+                        value={username} 
+                        onChange={e => setUsername(e.target.value)} 
+                        variant="outlined" 
+                        sx={{ 
+                            backgroundColor: 'white',
+                            borderRadius: '5px'
+                        }}
+                    />
                     <Button variant="contained" onClick={connect}>Connect</Button>
-
-
-                    <div>
-                        <video ref={localVideoref} autoPlay muted></video>
-                    </div>
-
                 </div> :
-
-
-                <div className={styles.meetVideoContainer}>
-
-                    {showModal ? <div className={styles.chatRoom}>
-
-                        <div className={styles.chatContainer}>
-                            <h1>Chat</h1>
-
-                            <div className={styles.chattingDisplay}>
-
-                                {messages.length !== 0 ? messages.map((item, index) => {
-
-                                    console.log(messages)
-                                    return (
-                                        <div style={{ marginBottom: "20px" }} key={index}>
-                                            <p style={{ fontWeight: "bold" }}>{item.sender}</p>
-                                            <p>{item.data}</p>
-                                        </div>
-                                    )
-                                }) : <p>No Messages Yet</p>}
-
-
+                <div className={`${styles.meetVideoContainer} ${showModal ? styles.chatRoomOpen : ''}`}>
+                    {showModal && 
+                        <div className={styles.chatRoom}>
+                            <div className={styles.chatContainer}>
+                                <h1>Chat</h1>
+                                <div className={styles.chattingDisplay}>
+                                    {messages.length !== 0 ? messages.map((item, index) => {
+                                        return (
+                                            <div style={{ marginBottom: "20px" }} key={index}>
+                                                <p style={{ fontWeight: "bold" }}>{item.sender}</p>
+                                                <p>{item.data}</p>
+                                            </div>
+                                        )
+                                    }) : <p>No Messages Yet</p>}
+                                </div>
+                                <div className={styles.chattingArea}>
+                                    <TextField 
+                                        value={message} 
+                                        onChange={(e) => setMessage(e.target.value)} 
+                                        id="outlined-basic" 
+                                        label="Enter Your chat" 
+                                        variant="outlined" 
+                                        size="small"
+                                    />
+                                    <Button variant='contained' onClick={sendMessage} size="small">Send</Button>
+                                </div>
                             </div>
-
-                            <div className={styles.chattingArea}>
-                                <TextField value={message} onChange={(e) => setMessage(e.target.value)} id="outlined-basic" label="Enter Your chat" variant="outlined" />
-                                <Button variant='contained' onClick={sendMessage}>Send</Button>
-                            </div>
-
-
                         </div>
-                    </div> : <></>}
-
+                    }
 
                     <div className={styles.buttonContainers}>
                         <IconButton onClick={handleVideo} style={{ color: "white" }}>
@@ -516,12 +485,14 @@ export default function VideoMeetComponent() {
                             </IconButton> : <></>}
 
                         <Badge badgeContent={newMessages} max={999} color='orange'>
-                            <IconButton onClick={() => setModal(!showModal)} style={{ color: "white" }}>
-                                <ChatIcon />                        </IconButton>
+                            <IconButton onClick={() => {
+                                setModal(!showModal);
+                                setNewMessages(0);
+                            }} style={{ color: "white" }}>
+                                <ChatIcon />
+                            </IconButton>
                         </Badge>
-
                     </div>
-
 
                     <video className={styles.meetUserVideo} ref={localVideoref} autoPlay muted></video>
 
@@ -529,7 +500,6 @@ export default function VideoMeetComponent() {
                         {videos.map((video) => (
                             <div key={video.socketId}>
                                 <video
-
                                     data-socket={video.socketId}
                                     ref={ref => {
                                         if (ref && video.stream) {
@@ -540,15 +510,10 @@ export default function VideoMeetComponent() {
                                 >
                                 </video>
                             </div>
-
                         ))}
-
                     </div>
-
                 </div>
-
             }
-
         </div>
     )
 }
